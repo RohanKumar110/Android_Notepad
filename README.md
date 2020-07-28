@@ -20,3 +20,6 @@ A Notepad App made with Android Studio using java, sqlite database and recyclerv
 * [Cardview](https://developer.android.com/jetpack/androidx/releases/cardview)
 * [Biometric](https://developer.android.com/jetpack/androidx/releases/biometric)
 
+## Demo
+
+<img src="https://user-images.githubusercontent.com/62876849/88650898-976e5c80-d0e2-11ea-8bd4-48212ad813bf.gif" width="320" height="550">
