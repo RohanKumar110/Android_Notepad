@@ -2,12 +2,15 @@ package com.rk.Notepad;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         setSupportActionBar(toolbar);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         db = new Database(this);
         notes = db.getNotes();
@@ -74,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
         View view = getLayoutInflater().inflate(R.layout.custom_setting_dialog,null);
-
         btnToggle = view.findViewById(R.id.btntoggle);
         txtDialogMsg = view.findViewById(R.id.txtDialogMsg);
         Button btnCancel = view.findViewById(R.id.btnCancel);
@@ -82,15 +85,13 @@ public class MainActivity extends AppCompatActivity {
         if(isEnabled()){
             btnToggle.setBackgroundResource(R.drawable.toggle_on);
         }
-        else{
+        else {
             btnToggle.setBackgroundResource(R.drawable.toggle_off);
         }
-
         alert.setView(view);
         final AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.setTitle("Settings");
-
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,9 +190,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        finishAffinity();
     }
 }
