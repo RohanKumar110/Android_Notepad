@@ -9,9 +9,42 @@
         android:id="@+id/addBtn"/>
 
     <item
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Settings"
+        android:icon="@drawable/ic_baseline_sort_24"
+        android:title="Sort By"
         app:showAsAction="ifRoom"
-        android:id="@+id/settings"/>
+        android:id="@+id/sort">
+
+    <menu>
+
+        <item
+            android:title="Name"
+            app:showAsAction="never"
+            android:id="@+id/sortByName"/>
+
+        <item
+            android:title="Date"
+            app:showAsAction="never"
+            android:id="@+id/sortByDate"/>
+
+    </menu>
+
+    </item>
+
+   <item
+       android:title="Main Menu"
+       app:showAsAction="always"
+       android:icon="@drawable/ic_baseline_more_vert_24">
+
+       <menu>
+
+           <item
+               android:icon="@drawable/ic_baseline_settings_24"
+               android:title="Settings"
+               app:showAsAction="ifRoom"
+               android:id="@+id/settings"/>
+
+       </menu>
+
+   </item>
 
 </menu>

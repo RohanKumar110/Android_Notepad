@@ -2,8 +2,6 @@ package com.rk.Notepad;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.biometric.BiometricManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,13 +64,45 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.addBtn)
-            startActivity(new Intent(MainActivity.this, NoteActivity.class));
-        else if (item.getItemId() == R.id.settings) {
-            openDialog();
-        }
+        switch(item.getItemId()){
 
-        return super.onOptionsItemSelected(item);
+            case R.id.addBtn:
+                startActivity(new Intent(MainActivity.this, NoteActivity.class));
+                return true;
+            case R.id.settings:
+                openDialog();
+                return true;
+            case R.id.sortByName:
+                sortByName();
+                return true;
+            case R.id.sortByDate:
+                sortByDate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sortByDate() {
+
+       Collections.sort(notes, new Comparator<NoteModel>() {
+           @Override
+           public int compare(NoteModel o1, NoteModel o2) {
+               return o1.getDate().compareTo(o2.getDate());
+           }
+       });
+       adapter.notifyDataSetChanged();
+    }
+
+    private void sortByName() {
+
+        Collections.sort(notes, new Comparator<NoteModel>() {
+            @Override
+            public int compare(NoteModel o1, NoteModel o2) {
+                return o1.getTitle().compareToIgnoreCase(o2.getTitle());
+            }
+        });
+        adapter.notifyDataSetChanged();
     }
 
     private void openDialog() {
@@ -176,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("Auth", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 
     public boolean checkSdkVersion() {
