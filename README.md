@@ -8,6 +8,7 @@ A Notepad App made with Android Studio using java, sqlite database and recyclerv
 * Read Note
 * Delete Note
 * Update Note
+* Sort by Date and Name
 * Fingerprint Authentication
 
 ## Permission Required
